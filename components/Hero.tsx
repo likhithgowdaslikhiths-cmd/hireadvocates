@@ -51,7 +51,24 @@ const stateOptions = [
     location: "",
     caseType: "",
   });
+const handleSubmit = async () => {
+  const res = await fetch("/api/send-email", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  });
 
+  const data = await res.json();
+
+  if (data.success) {
+    alert("Request submitted successfully");
+    setOpenForm(false);
+  } else {
+    alert("Something went wrong");
+  }
+};
   // Handle hero dropdown change
   const handleSearchChange = (e: any) => {
     setSearchData({
@@ -143,11 +160,11 @@ const getMenuPortalTarget = useCallback(() => {
             </div>
 
             <button
-              className="hero-btn"
-              onClick={handleOpenForm}
-            >
-              Request Lawyer →
-            </button>
+  className="submit-btn"
+  onClick={handleSubmit}
+>
+  Submit Request
+</button>
 
           </div>
 
