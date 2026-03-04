@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 export default function Hero() {
   const Select = dynamic(() => import("react-select"), {
     ssr: false,
+    loading: () => <div>Loading states...</div> // ✅ Fix hydration
   });
     const [openForm, setOpenForm] = useState(false);
 const stateOptions = [
@@ -52,32 +53,42 @@ const stateOptions = [
     caseType: "",
   });
 const handleSubmit = async () => {
-  const res = await fetch("/api/send-email", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(formData),
-  });
+    try {
+      console.log("Submitting:", formData); // Debug log
+      
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-  const data = await res.json();
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
 
-  if (data.success) {
-    alert("Request submitted successfully");
-    setOpenForm(false);
-  } else {
-    alert("Something went wrong");
-  }
-};
-  // Handle hero dropdown change
-  const handleSearchChange = (e: any) => {
-    setSearchData({
-      ...searchData,
-      [e.target.name]: e.target.value,
-    });
+      const data = await res.json();
+
+      if (data.success) {
+        alert("✅ Request submitted successfully!");
+        setOpenForm(false);
+        // Reset forms
+        setFormData({ name: "", phone: "", state: "", location: "", caseType: "" });
+        setSearchData({ state: null, caseType: "" });
+      } else {
+        alert("❌ " + (data.error || "Something went wrong"));
+      }
+    } catch (error) {
+      console.error("Submit error:", error);
+      alert("🌐 Network error. Check console & try again.");
+    }
   };
 
- const handleOpenForm = () => {
+  const handleSearchChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSearchData({ ...searchData, [e.target.name]: e.target.value });
+  };
+
+  // ✅ FIXED: Hero button OPENS form (not submits)
+  const handleOpenForm = () => {
     setFormData({
       ...formData,
       state: searchData.state ? searchData.state.value : "",
@@ -86,180 +97,129 @@ const handleSubmit = async () => {
     setOpenForm(true);
   };
 
-  // Handle popup form change
-  const handleFormChange = (e: any) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-const getMenuPortalTarget = useCallback(() => {
-    if (typeof document !== "undefined") {
-      return document.body;
-    }
-    return undefined;
+
+  const handleSelectChange = (selected: any) => {
+    setSearchData({ ...searchData, state: selected });
+  };
+
+  const getMenuPortalTarget = useCallback(() => {
+    return typeof document !== "undefined" ? document.body : undefined;
   }, []);
 
   return (
     <>
-    <section className="hero-section">
-      <div className="hero-content">
+      <section className="hero-section">
+        <div className="hero-content">
+          <h1>India's Trusted <span>Legal Connection</span> Platform</h1>
+          <p className="hero-description">5,000+ Verified Lawyers. 500+ Cities</p>
 
-        <h1>
-          India’s Trusted <span>Legal Connection</span> Platform
-        </h1>
-        <p className="hero-description"> 5,000+ Verified Lawyers. 500+ Cities</p>
-
-      <div className="hero-live-badge">
-  <div className="live-avatars">
-    <img src="https://i.pravatar.cc/30?img=1" alt="" />
-    <img src="https://i.pravatar.cc/30?img=2" alt="" />
-    <img src="https://i.pravatar.cc/30?img=3" alt="" />
-    <div className="google-badge">G</div>
-  </div>
-
-  <span>
-    <strong>96 Lawyer's are online</strong> 
-  </span>
-
-  <div className="live-dot"></div>
-</div>
-
-       {/* Improved Search Box */}
-          <div className="hero-search-box">
-          <div className="input-group">
-            <label>Location</label>
-            <Select
-              options={stateOptions}
-              placeholder="Karnataka"
-              value={searchData.state}
-              menuPortalTarget={getMenuPortalTarget()}
-              menuPosition="fixed"
-              styles={{
-                menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-              }}
-              onChange={(selected: any) =>
-                setSearchData({
-                  ...searchData,
-                  state: selected,
-                })
-              }
-            />
+          {/* Live badge unchanged */}
+          <div className="hero-live-badge">
+            <div className="live-avatars">
+              <img src="https://i.pravatar.cc/30?img=1" alt="" />
+              <img src="https://i.pravatar.cc/30?img=2" alt="" />
+              <img src="https://i.pravatar.cc/30?img=3" alt="" />
+              <div className="google-badge">G</div>
+            </div>
+            <span><strong>96 Lawyers are online</strong></span>
+            <div className="live-dot"></div>
           </div>
+
+          {/* ✅ FIXED Search Box */}
+          <div className="hero-search-box">
+            <div className="input-group">
+              <label>Location</label>
+              <Select
+                options={stateOptions}
+                placeholder="Karnataka"
+                value={searchData.state}
+                menuPortalTarget={getMenuPortalTarget()}
+                menuPosition="fixed"
+                styles={{ menuPortal: (base: any) => ({ ...base, zIndex: 9999 }) }}
+                onChange={handleSelectChange}
+              />
+            </div>
             <div className="input-group">
               <label>Case Type</label>
-              <select
-                name="caseType"
-                onChange={handleSearchChange}
-              >
+              <select name="caseType" value={searchData.caseType} onChange={handleSearchChange}>
                 <option value="">Select Case Type</option>
                 <option value="Divorce">Divorce</option>
                 <option value="Criminal">Criminal</option>
                 <option value="Corporate">Corporate</option>
               </select>
             </div>
-
-            <button
-  className="submit-btn"
-  onClick={handleSubmit}
->
-  Submit Request
-</button>
-
+            {/* ✅ FIXED: Opens form INSTEAD of submitting */}
+            <button className="submit-btn" onClick={handleOpenForm}>
+              Submit Request
+            </button>
           </div>
 
-        
+          {/* Trust indicators unchanged */}
+          <div className="hero-trust">
+            <div className="trust-item"><ShieldCheck size={20} className="trust-icon" /><span>Verified Lawyers</span></div>
+            <div className="trust-item"><Users size={20} className="trust-icon" /><span>Trusted by 10K+ Clients</span></div>
+            <div className="trust-item"><Scale size={20} className="trust-icon" /><span>All Legal Categories</span></div>
+          </div>
+        </div>
+      </section>
 
-        {/* Trust Indicators */}
-        <div className="hero-trust">
-  <div className="trust-item">
-    <ShieldCheck size={20} className="trust-icon" />
-    <span>Verified Lawyers</span>
-  </div>
-
-  <div className="trust-item">
-    <Users size={20} className="trust-icon" />
-    <span>Trusted by 10K+ Clients</span>
-  </div>
-
-  <div className="trust-item">
-    <Scale size={20} className="trust-icon" />
-    <span>All Legal Categories</span>
-  </div>
-</div>
-      </div>
-    </section>
-   {openForm && (
+      {/* ✅ FIXED Popup Form */}
+      {openForm && (
         <div className="popup-overlay">
           <div className="popup-form">
-            <button
-              className="close-popup"
-              onClick={() => setOpenForm(false)}
-            >
-              ✕
-            </button>
-
+            <button className="close-popup" onClick={() => setOpenForm(false)}>✕</button>
             <h2>Request a Lawyer</h2>
 
             <input
               type="text"
               name="name"
               placeholder="Your Name"
+              value={formData.name}
               onChange={handleFormChange}
             />
-
             <input
               type="tel"
               name="phone"
               placeholder="Phone Number"
+              value={formData.phone}
               onChange={handleFormChange}
             />
-
             
-           <Select
+            <Select
               options={stateOptions}
               placeholder="Search or Select State"
               value={searchData.state}
               menuPortalTarget={getMenuPortalTarget()}
               menuPosition="fixed"
-              styles={{
-                menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-              }}
-              onChange={(selected: any) =>
-                setSearchData({
-                  ...searchData,
-                  state: selected,
-                })
-              }
+              styles={{ menuPortal: (base: any) => ({ ...base, zIndex: 9999 }) }}
+              onChange={handleSelectChange}
             />
 
             <input
               type="text"
               name="location"
               placeholder="Location"
+              value={formData.location}
               onChange={handleFormChange}
             />
 
-            <select
-              name="caseType"
-              value={formData.caseType}
-              onChange={handleFormChange}
-            >
+            <select name="caseType" value={formData.caseType} onChange={handleFormChange}>
               <option value="">Select Case Type</option>
               <option value="Divorce">Divorce</option>
               <option value="Criminal">Criminal</option>
               <option value="Corporate">Corporate</option>
             </select>
 
-            <button className="submit-btn">
+            {/* ✅ FIXED: THIS button submits (popup one) */}
+            <button className="submit-btn" onClick={handleSubmit}>
               Submit Request
             </button>
-
           </div>
         </div>
       )}
     </>
-
-    
   );
 }
