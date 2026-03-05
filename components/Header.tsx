@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-
+import Image from "next/image";
 export default function Header() {
   const [open, setOpen] = useState(false);
 
@@ -12,7 +12,13 @@ export default function Header() {
 
         {/* Logo */}
         <Link href="/" className="logo">
-          Hire<span>Advocates</span>
+          <Image
+            src="/logo.png"
+            alt="HireAdvocates Logo"
+            width={160}
+            height={40}
+            priority
+          />
         </Link>
 
         {/* Navigation */}

@@ -24,42 +24,45 @@ export default function OnlineConsultationSection() {
 
   const handleSubmit = async () => {
 
-    if (!formData.name || !formData.phone) {
-      alert("Please fill required fields");
-      return;
-    }
+  if (!formData.name || !formData.phone) {
+    alert("Please fill required fields");
+    return;
+  }
 
-    setLoading(true);
+  setLoading(true);
 
-    try {
-      const res = await fetch("https://hireadvocates.com/api/send-consultation.php", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+  try {
+    const res = await fetch("/api/send-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      setSuccess(true);
+
+      setFormData({
+        name: "",
+        phone: "",
+        state: "",
+        caseType: ""
       });
 
-      const data = await res.json();
-
-      if (data.success) {
-        setSuccess(true);
-        setFormData({
-          name: "",
-          phone: "",
-          state: "",
-          caseType: ""
-        });
-      } else {
-        alert("Something went wrong");
-      }
-
-    } catch (error) {
-      alert("Server error");
+    } else {
+      alert(data.error || "Something went wrong");
     }
 
-    setLoading(false);
-  };
+  } catch (error) {
+    console.error(error);
+    alert("Server error");
+  }
+
+  setLoading(false);
+};
 
   return (
     <section className="consultation-section">

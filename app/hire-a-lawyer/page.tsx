@@ -20,10 +20,51 @@ export default function HireLawyerPage() {
     });
   };
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    alert("Form submitted successfully!");
-  };
+ const handleSubmit = async (e: any) => {
+  e.preventDefault();
+
+  if (!formData.name || !formData.phone) {
+    alert("Please fill required fields");
+    return;
+  }
+
+  try {
+
+    const res = await fetch("/api/send-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        phone: formData.phone,
+        state: formData.state,
+        caseType: formData.caseType,
+        location: formData.message
+      }),
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      alert("Request submitted successfully!");
+
+      setFormData({
+        name: "",
+        phone: "",
+        state: "",
+        caseType: "",
+        message: "",
+      });
+
+    } else {
+      alert(data.error || "Something went wrong");
+    }
+
+  } catch (error) {
+    alert("Server error");
+  }
+};
 
   return (
     <main className="hire-page">

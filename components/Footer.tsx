@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Mail, MapPin } from "lucide-react";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -13,9 +14,17 @@ export default function Footer() {
 
         {/* Brand Column */}
         <div className="footer-col brand">
-          <h3 className="footer-logo">
-            Hire<span>Advocates</span>
-          </h3>
+
+          {/* Logo */}
+          <Link href="/" className="footer-logo">
+            <Image
+              src="/logo2.png"
+              alt="HireAdvocates Logo"
+              width={160}
+              height={45}
+              priority
+            />
+          </Link>
 
           <p>
             India’s trusted legal connection platform connecting individuals
@@ -26,6 +35,7 @@ export default function Footer() {
             <span>5,000+ Lawyers</span>
             <span>500+ Cities</span>
           </div>
+
         </div>
 
         {/* Quick Links */}
@@ -40,7 +50,7 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Legal Categories */}
+        {/* Practice Areas */}
         <div className="footer-col">
           <h4>Practice Areas</h4>
           <ul>
