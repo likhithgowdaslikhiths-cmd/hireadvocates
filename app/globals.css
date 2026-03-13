@@ -1853,12 +1853,15 @@ h1, h2, h3, h4, h5, h6 {
 /* ===============================
    HERO
 ================================ */
-
+.about-page{
+  padding-top: 100px;
+}
 .about-hero {
   position: relative;
   background: linear-gradient(135deg, #071B32, #0B1F3A);
   color: white;
-  padding: 70px 20px;
+  padding: 100px 20px;
+  padding-top: 100px;
   text-align: center;
   overflow: hidden;
 }
@@ -2165,7 +2168,7 @@ BLOG PAGE
 ============================== */
 
 .blog-page{
-padding-top:140px;
+padding-top:100px;
 background:#F6F8FC;
 }
 
@@ -2402,4 +2405,38 @@ font-size:30px;
 .footer-logo img{
   height:45px;
   width:auto;
+}
+.legal-page{
+  padding-top:100px;
+}
+
+.legal-hero{
+  background:linear-gradient(135deg,#071B32,#0B1F3A);
+  color:white;
+  text-align:center;
+  padding:100px 20px;
+}
+
+.legal-hero h1{
+  font-size:40px;
+  margin-bottom:10px;
+}
+
+.legal-content{
+  padding:80px 20px;
+  background:#f8f9fc;
+}
+
+.legal-content h2{
+  margin-top:30px;
+  margin-bottom:10px;
+}
+
+.legal-content p{
+  line-height:1.7;
+  margin-bottom:15px;
+}
+
+.legal-content ul{
+  margin-left:20px;
 }

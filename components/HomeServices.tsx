@@ -4,8 +4,17 @@ import { useRef, useState } from "react";
 
 const services = [
   {
+    title: "NDPS Case Assistance",
+    desc: "Connect with experienced NDPS lawyers for narcotics-related cases including possession, bail applications, investigation procedures and court defence."
+  },
+
+  {
     title: "Legal Requirement Assessment",
     desc: "We review every user submission carefully to understand the legal issue, urgency, and location before connecting you with a suitable lawyer or advocate."
+  },
+   {
+    title: "ITP Act Case Assistance",
+    desc: "Get legal assistance from advocates experienced in Immoral Traffic Prevention (ITP) Act matters including legal defence, case representation and advisory support."
   },
   {
     title: "Advocate Matching & Allocation",

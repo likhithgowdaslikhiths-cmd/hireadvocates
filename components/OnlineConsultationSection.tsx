@@ -95,7 +95,7 @@ export default function OnlineConsultationSection() {
           {/* Stats */}
           <div className="consultation-stats">
             <div>
-              <h3>5,000+</h3>
+              <h3>10,000+</h3>
               <p>Clients Served</p>
             </div>
             <div>
@@ -103,7 +103,7 @@ export default function OnlineConsultationSection() {
               <p>Cases Resolved</p>
             </div>
             <div>
-              <h3>500+</h3>
+              <h3>100+</h3>
               <p>Cities Covered</p>
             </div>
           </div>

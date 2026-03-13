@@ -21,10 +21,10 @@ variable: "--font-body",
 display: "swap",
 });
 
-export const metadata: Metadata = {
-title: "HireAdvocates | Hire Verified Lawyers Across India",
-description:
-"Connect with experienced lawyers across India for criminal, civil, property, corporate and family legal matters. HireAdvocates provides trusted legal consultation and representation.",
+export const metadata = {
+  title: "Hire Advocates",
+  description: "India’s Trusted Legal Connection Platform",
+ 
 };
 
 export default function RootLayout({

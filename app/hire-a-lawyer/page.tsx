@@ -93,11 +93,11 @@ export default function HireLawyerPage() {
 
             <div className="hire-stats">
               <div>
-                <strong>5,000+</strong>
+                <strong>1,000+</strong>
                 <span>Verified Lawyers</span>
               </div>
               <div>
-                <strong>500+</strong>
+                <strong>100+</strong>
                 <span>Cities Covered</span>
               </div>
               <div>

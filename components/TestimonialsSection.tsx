@@ -4,24 +4,28 @@ import { Star } from "lucide-react";
 
 const testimonials = [
   {
-    name: "Rahul K.",
-    text: "I booked an online legal consultation and was connected with a verified lawyer within hours. Clear and professional advice."
+    name: "Rahul Mehta.",
+    text: "I needed a lawyer quickly and they helped me find without any confusion. The process was simple and I got connected the same day. Very helpful service"
   },
   {
-    name: "Sneha M.",
-    text: "Urgent criminal lawyer assistance was handled smoothly. Secure consultation and detailed legal guidance."
+    name: "Sandeep Rao.",
+    text: "Reliable platform to find legal professionals. It saved me the effort of asking around."
   },
   {
-    name: "Arjun P.",
-    text: "Connected with an experienced family lawyer. Confidential and structured legal consultation."
+    name: "Anitha Ravi.",
+    text: "I was confused about the legal steps for my issue, but the advocate I connected with guided me clearly from the start. Everything went smoothly and I felt much more confident about my case."
   },
   {
-    name: "Priya S.",
-    text: "Excellent platform for cheque bounce and financial dispute matters. Very practical legal advice."
+    name: "Megha H R.",
+    text: "The advocate was approachable and explained things clearly. Good support overall."
   },
   {
-    name: "Mohammed R.",
-    text: "As an NRI, I received professional and transparent legal assistance in India."
+    name: "Ashirwad Tanoj.",
+    text: "I had a consumer complaint issue and the advocate guided me properly on what steps to take. The process was handled smoothly and I’m happy with the support I received."
+  },
+  {
+    name: "Meghana Shreyas.",
+    text: "I appreciate the clear advice I got. The advocate made sure I understood the options before moving forward."
   }
 ];
 
@@ -43,7 +47,7 @@ export default function TestimonialsSection() {
                 <div className="testimonial-footer">
                   <h4>{item.name}</h4>
                   <div className="stars">
-                    {[...Array(5)].map((_, i) => (
+                    {[...Array(6)].map((_, i) => (
                       <Star key={i} size={14} fill="#C8A951" color="#C8A951" />
                     ))}
                   </div>
@@ -61,7 +65,7 @@ export default function TestimonialsSection() {
                 <div className="testimonial-footer">
                   <h4>{item.name}</h4>
                   <div className="stars">
-                    {[...Array(5)].map((_, i) => (
+                    {[...Array(6)].map((_, i) => (
                       <Star key={i} size={14} fill="#C8A951" color="#C8A951" />
                     ))}
                   </div>

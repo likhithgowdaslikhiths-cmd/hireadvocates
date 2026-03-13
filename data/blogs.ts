@@ -1,105 +1,59 @@
 export const blogs = [
   {
-    slug: "how-criminal-complaints-property-disputes",
-    title: "How Criminal Complaints Are Misused in Property Disputes",
-    description:
-      "Understand when property disputes become criminal cases and when criminal law is misused as pressure tactics.",
-    image: "/consultation.jpg",
-    date: "March 2026",
-    content: `
-Property disputes in India are usually civil matters involving ownership and contractual disagreements.
-
-However, many civil disputes are increasingly converted into criminal complaints involving allegations like cheating, breach of trust, or forgery.
-
-Courts have repeatedly clarified that criminal law cannot be used to settle civil scores.
-
-The key test is dishonest intention from the beginning of the transaction.
-
-If fraud existed from the start, criminal liability may arise. Otherwise, the dispute is generally civil.
-
-Strategic legal advice at the beginning of property disputes helps avoid unnecessary criminal litigation.
-    `
-  },
-  {
-    slug: "common-mistakes-section-138-ni-act-notice",
-    title:
-      "Common Mistakes Accused Make After Receiving a Section 138 NI Act Notice — And How It Can Cost You",
-    description:
-      "Understand the most common mistakes people make after receiving a cheque bounce notice under Section 138 of the Negotiable Instruments Act.",
-    image: "/blog2.png",
-    date: "March 2026",
-    content: `
-Receiving a cheque bounce notice under Section 138 of the Negotiable Instruments Act is a serious legal event.
-
-Many accused individuals treat the notice casually, believing it is only a pressure tactic. In reality, the law provides only a 15-day window after receiving a valid demand notice to make payment or respond legally.
-
-Ignoring this stage can lead to criminal prosecution.
-
-1. Ignoring the Notice Completely
-
-Many people assume a legal notice is simply intimidation. It is not.
-
-Once the notice is received, the legal clock starts. The accused has fifteen days to either make payment or send a proper legal reply explaining the defence.
-
-Ignoring the notice makes it easier for the complainant to file a criminal complaint.
-
-2. Missing the 15-Day Window
-
-If the cheque amount is paid within fifteen days, the offence is not considered complete.
-
-Once this statutory period passes without payment, the complainant can proceed with a criminal complaint.
-
-3. Sending a Weak Reply
-
-Replies like “I will arrange payment soon” are not a legal defence.
-
-A proper reply should clearly explain whether the cheque was issued as security, whether liability exists, and whether payment has already been made.
-
-4. Assuming “I Didn’t Receive the Notice”
-
-Courts often presume delivery if the notice was sent correctly through registered post or speed post.
-
-Simply denying receipt rarely succeeds in court.
-
-5. Not Checking the Demand Amount
-
-Under Section 138, the notice must demand exactly the cheque amount.
-
-If the notice demands additional amounts like interest within the same demand, it may sometimes make the notice defective.
-
-6. Believing Late Payment Ends the Case
-
-Payment after the 15-day period may help settlement, but it does not cancel the offence automatically.
-
-7. Waiting for Court Summons
-
-Many accused wait until they receive court summons before consulting a lawyer.
-
-By then, the complainant has already filed the complaint and strategic opportunities are lost.
-
-Conclusion
-
-Receiving a Section 138 notice is not the end of the world, but it is a critical legal moment.
-
-The most common mistakes include ignoring the notice, missing the statutory deadline, sending weak replies, and delaying legal consultation.
-
-Act early, respond carefully, and protect your legal position before the matter escalates into court proceedings.
-`
-  },
-  {
-    slug: "civil-suit-timeline-india",
-    title: "Civil Suit Timeline Explained: What Actually Happens After You File a Case",
-    description:
-      "Understand the real timeline of civil litigation in India and what happens at each stage of a civil suit.",
-    image: "/blog3.png",
-    date: "March 2026",
-  },
-  {
-  slug: "civil-criminal-strategy-land-litigation",
-  title: "Civil & Criminal Strategy in Land Litigation: When and How to Use Both Remedies",
+  slug: "cheque-bounce-section-138-ni-act",
+  title: "Cheque Bounce & Criminal Liability: The Hidden Power of Section 138",
   description:
-    "Understand when civil and criminal remedies should be used together in land disputes and how legal strategy affects property litigation outcomes.",
-  image: "/blog4.png",
+    "Understand how cheque bounce cases under Section 138 of the Negotiable Instruments Act can lead to criminal proceedings and what legal defences exist.",
+  image: "/blog2.JPG",
   date: "March 2026",
-}
+  content: `
+A dishonoured cheque can quickly turn into criminal proceedings under Section 138 of the Negotiable Instruments Act, 1881.
+
+When a cheque issued for a legally enforceable debt is returned unpaid due to insufficient funds or similar reasons, the law treats it as a criminal offence.
+
+However, certain legal conditions must be satisfied before a case can be filed.
+
+The cheque must be issued for a valid liability, presented within its validity period, and a legal notice must be sent within 30 days of dishonour.
+
+If the drawer fails to pay within 15 days after receiving the notice, a criminal complaint can be filed in court.
+
+Courts can impose imprisonment up to two years, a fine up to twice the cheque amount, or both.
+
+Understanding the strict timelines, legal presumptions, and available defences is essential for anyone involved in cheque bounce litigation.
+`
+},
+  {
+  slug: "bharatiya-nyaya-sanhita-criminal-law-changes",
+  title:
+    "India’s New Criminal Code: What the Bharatiya Nyaya Sanhita (BNS) Quietly Changed",
+  description:
+    "Explore how the Bharatiya Nyaya Sanhita (BNS) replaced the Indian Penal Code and introduced new offences, punishments and changes to India’s criminal law system.",
+  image: "/blog4.JPG",
+  date: "March 2026",
+  content: `
+India introduced the Bharatiya Nyaya Sanhita (BNS) in July 2024, replacing the Indian Penal Code of 1860.
+
+The new law brings several changes including new criminal offences, revised punishments and provisions addressing modern crimes such as organised crime and mob violence.
+
+Understanding these reforms is important because police investigations, FIRs and court proceedings across India are now being registered under the BNS.
+`
+},
+  {
+  slug: "domestic-violence-act-india-explained",
+  title: "Beyond Physical Abuse: Understanding the Reach of the Domestic Violence Act in India",
+  description:
+    "Learn how the Domestic Violence Act, 2005 recognises emotional, economic and psychological abuse and how courts interpret domestic relationships under the law.",
+  image: "/blog3.JPG",
+  date: "March 2026",
+  content: `
+Domestic violence in India is not limited to physical assault. The Protection of Women from Domestic Violence Act, 2005 recognises multiple forms of abuse including emotional, verbal, economic and psychological harm.
+
+The law applies not only to married couples but also to certain live-in relationships and domestic arrangements resembling marriage.
+
+It also introduces important legal concepts such as the right to reside in a shared household, even if the property is not owned by the person seeking protection.
+
+Over the years, courts have clarified how domestic relationships, shared households and non-physical abuse should be interpreted, making the Act one of the most frequently invoked laws in family disputes.
+`
+},
+  
 ];

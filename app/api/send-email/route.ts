@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     const { name, phone, state, location, caseType } = body;
 
     // Input validation
-    if (!name || !phone || name.trim().length < 2 || !phone.match(/^\d{10}$/)) {
+    if (!name || !phone || name.trim().length < 2 || !phone.match(/^\d{10,12}$/)) {
       return NextResponse.json(
         { success: false, error: "Name (min 2 chars) and valid 10-digit phone required" },
         { status: 400 }

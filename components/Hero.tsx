@@ -114,20 +114,21 @@ const handleSubmit = async () => {
       <section className="hero-section">
         <div className="hero-content">
           <h1>India's Trusted <span>Legal Connection</span> Platform</h1>
-          <p className="hero-description">5,000+ Verified Lawyers. 500+ Cities</p>
+          <p className="hero-description">1,000+ Verified Lawyers. 100+ Cities</p>
 
           {/* Live badge unchanged */}
-          <div className="hero-live-badge">
-            <div className="live-avatars">
-              <img src="https://i.pravatar.cc/30?img=1" alt="" />
-              <img src="https://i.pravatar.cc/30?img=2" alt="" />
-              <img src="https://i.pravatar.cc/30?img=3" alt="" />
-              <div className="google-badge">G</div>
-            </div>
-            <span><strong>96 Lawyers are online</strong></span>
-            <div className="live-dot"></div>
-          </div>
+         <div className="hero-live-badge">
+  <div className="live-avatars">
+    <img src="/avatars/h1.png" alt="Lawyer" />
+    <img src="/avatars/h2.png" alt="Lawyer" />
+    <img src="/avatars/h3.png" alt="Lawyer" />
 
+    <img src="/avatars/google-badge.png" alt="Google badge" className="google-badge" />
+  </div>
+
+  <span><strong>96 Lawyers are online</strong></span>
+  <div className="live-dot"></div>
+</div>
           {/* ✅ FIXED Search Box */}
           <div className="hero-search-box">
             <div className="input-group">
@@ -160,7 +161,7 @@ const handleSubmit = async () => {
           {/* Trust indicators unchanged */}
           <div className="hero-trust">
             <div className="trust-item"><ShieldCheck size={20} className="trust-icon" /><span>Verified Lawyers</span></div>
-            <div className="trust-item"><Users size={20} className="trust-icon" /><span>Trusted by 10K+ Clients</span></div>
+            <div className="trust-item"><Users size={20} className="trust-icon" /><span>98% Client Satisfaction Rate</span></div>
             <div className="trust-item"><Scale size={20} className="trust-icon" /><span>All Legal Categories</span></div>
           </div>
         </div>

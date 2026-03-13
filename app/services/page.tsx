@@ -7,12 +7,24 @@ export default function ServicesPage() {
   const router = useRouter();
 
   const services = [
+     {
+    title: "NDPS Case Assistance",
+    description:
+      "Legal support for NDPS (Narcotic Drugs and Psychotropic Substances Act) cases including possession charges, bail applications, investigation procedures and court defence.",
+    image: "/services/12.jpg",
+  },
     {
       title: "Legal Requirement Assessment",
       description:
         "We review your legal issue, urgency, and location to connect you with the right advocate for accurate consultation.",
       image: "/services/01.jpg",
     },
+    {
+    title: "ITP Act Case Assistance",
+    description:
+      "Connect with advocates experienced in Immoral Traffic Prevention (ITP) Act cases for legal defence, court representation and case advisory.",
+    image: "/services/13.jpg",
+  },
     {
       title: "Advocate Matching & Allocation",
       description:

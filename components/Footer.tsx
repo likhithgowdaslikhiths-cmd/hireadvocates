@@ -18,12 +18,12 @@ export default function Footer() {
           {/* Logo */}
           <Link href="/" className="footer-logo">
             <Image
-              src="/logo2.png"
-              alt="HireAdvocates Logo"
-              width={160}
-              height={45}
-              priority
-            />
+  src="/logo2.png"
+  alt="HireAdvocates Logo"
+  width={160}
+  height={40}
+  style={{ height: "auto" }}
+/>
           </Link>
 
           <p>
@@ -32,8 +32,8 @@ export default function Footer() {
           </p>
 
           <div className="footer-stats">
-            <span>5,000+ Lawyers</span>
-            <span>500+ Cities</span>
+            <span>1,000+ Lawyers</span>
+            <span>100+ Cities</span>
           </div>
 
         </div>
