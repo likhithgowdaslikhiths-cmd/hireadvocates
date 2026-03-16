@@ -4,7 +4,7 @@ export const blogs = [
   title: "Cheque Bounce & Criminal Liability: The Hidden Power of Section 138",
   description:
     "Understand how cheque bounce cases under Section 138 of the Negotiable Instruments Act can lead to criminal proceedings and what legal defences exist.",
-  image: "/blog2.JPG",
+  image: "/blog2.jpg",
   date: "March 2026",
   content: `
 A dishonoured cheque can quickly turn into criminal proceedings under Section 138 of the Negotiable Instruments Act, 1881.
@@ -28,7 +28,7 @@ Understanding the strict timelines, legal presumptions, and available defences i
     "India’s New Criminal Code: What the Bharatiya Nyaya Sanhita (BNS) Quietly Changed",
   description:
     "Explore how the Bharatiya Nyaya Sanhita (BNS) replaced the Indian Penal Code and introduced new offences, punishments and changes to India’s criminal law system.",
-  image: "/blog4.JPG",
+  image: "/blog4.jpg",
   date: "March 2026",
   content: `
 India introduced the Bharatiya Nyaya Sanhita (BNS) in July 2024, replacing the Indian Penal Code of 1860.
@@ -43,7 +43,7 @@ Understanding these reforms is important because police investigations, FIRs and
   title: "Beyond Physical Abuse: Understanding the Reach of the Domestic Violence Act in India",
   description:
     "Learn how the Domestic Violence Act, 2005 recognises emotional, economic and psychological abuse and how courts interpret domestic relationships under the law.",
-  image: "/blog3.JPG",
+  image: "/blog3.jpg",
   date: "March 2026",
   content: `
 Domestic violence in India is not limited to physical assault. The Protection of Women from Domestic Violence Act, 2005 recognises multiple forms of abuse including emotional, verbal, economic and psychological harm.
