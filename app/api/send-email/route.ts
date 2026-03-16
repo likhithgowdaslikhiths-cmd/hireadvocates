@@ -9,14 +9,18 @@ const SPREADSHEET_ID = process.env.GOOGLE_SHEET_ID!;
 async function appendToGoogleSheet(data: {
   name: string;
   phone: string;
+  email: string;
   state: string;
   location: string;
   caseType: string;
 }) {
+  const rawKey = process.env.GOOGLE_PRIVATE_KEY || "";
+  const privateKey = rawKey.replace(/\\n/g, "\n").replace(/"/g, "").trim();
+
   const auth = new google.auth.GoogleAuth({
     credentials: {
       client_email: process.env.GOOGLE_CLIENT_EMAIL,
-      private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+      private_key: privateKey,
     },
     scopes: ["https://www.googleapis.com/auth/spreadsheets"],
   });
@@ -29,7 +33,7 @@ async function appendToGoogleSheet(data: {
 
   await sheets.spreadsheets.values.append({
     spreadsheetId: SPREADSHEET_ID,
-    range: "Sheet1!A:F",
+    range: "Sheet1!A:G",
     valueInputOption: "USER_ENTERED",
     requestBody: {
       values: [
@@ -37,6 +41,7 @@ async function appendToGoogleSheet(data: {
           timestamp,
           data.name,
           data.phone,
+          data.email || "Not provided",
           data.state || "Not specified",
           data.location || "Not specified",
           data.caseType || "General",
@@ -102,22 +107,16 @@ export async function POST(req: NextRequest) {
           subject: "✅ We've Received Your Request – Hire Advocates",
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #1a1a1a;">
-              
-              <!-- Header -->
               <div style="background: #1a3c6e; padding: 30px 20px; border-radius: 8px 8px 0 0; text-align: center;">
                 <h1 style="color: #fff; margin: 0; font-size: 22px;">⚖️ Hire Advocates</h1>
                 <p style="color: #a0b4cc; margin: 6px 0 0; font-size: 13px;">India's Trusted Legal Connection</p>
               </div>
-
-              <!-- Body -->
               <div style="background: #ffffff; padding: 30px 24px; border: 1px solid #e2e8f0;">
                 <h2 style="color: #1a3c6e; margin-top: 0;">Hi ${name}, we've got your request! 👋</h2>
                 <p style="line-height: 1.7; color: #444;">
                   Thank you for reaching out to <strong>Hire Advocates</strong>. Our team will review your case 
                   details and connect you with the most suitable advocate shortly.
                 </p>
-
-                <!-- Summary Box -->
                 <div style="background: #f0f4ff; border-left: 4px solid #1a3c6e; padding: 16px 20px; border-radius: 4px; margin: 24px 0;">
                   <p style="margin: 0 0 8px; font-weight: bold; color: #1a3c6e;">📋 Your Submission Summary</p>
                   <p style="margin: 4px 0; font-size: 14px;"><strong>Name:</strong> ${name}</p>
@@ -126,13 +125,11 @@ export async function POST(req: NextRequest) {
                   <p style="margin: 4px 0; font-size: 14px;"><strong>Location:</strong> ${location || "Not specified"}</p>
                   <p style="margin: 4px 0; font-size: 14px;"><strong>Case Type:</strong> ${caseType || "General"}</p>
                 </div>
-
                 <p style="line-height: 1.7; color: #444;">
                   Expect a call or email from us within <strong>24 hours</strong>. 
                   If you need immediate assistance, feel free to reach us at 
                   <a href="mailto:info@hireadvocates.com" style="color: #1a3c6e;">info@hireadvocates.com</a>.
                 </p>
-
                 <div style="text-align: center; margin-top: 28px;">
                   <a href="https://hireadvocates.com" 
                      style="background: #1a3c6e; color: white; padding: 12px 28px; border-radius: 6px; 
@@ -141,8 +138,6 @@ export async function POST(req: NextRequest) {
                   </a>
                 </div>
               </div>
-
-              <!-- Footer -->
               <div style="background: #f8f9fa; padding: 16px 24px; border-radius: 0 0 8px 8px; 
                           text-align: center; border: 1px solid #e2e8f0; border-top: none;">
                 <p style="color: #999; font-size: 12px; margin: 0;">
@@ -154,15 +149,17 @@ export async function POST(req: NextRequest) {
         }
       : null;
 
-    // ── 3. Run all tasks in parallel ──────────────────────────────
-    const tasks: Promise<any>[] = [
-      transporter.sendMail(adminMail),
-      appendToGoogleSheet({ name, phone, state, location, caseType }),
-    ];
+    // ── 3. Send emails first (critical) ───────────────────────────
+    const emailTasks: Promise<any>[] = [transporter.sendMail(adminMail)];
+    if (userMail) emailTasks.push(transporter.sendMail(userMail));
+    await Promise.all(emailTasks);
 
-    if (userMail) tasks.push(transporter.sendMail(userMail));
-
-    await Promise.all(tasks);
+    // ── 4. Google Sheets (non-critical, won't crash if fails) ─────
+    try {
+      await appendToGoogleSheet({ name, phone, email, state, location, caseType });
+    } catch (sheetError: any) {
+      console.error("⚠️ Sheets error (non-fatal):", sheetError.message);
+    }
 
     return NextResponse.json({
       success: true,
@@ -170,7 +167,7 @@ export async function POST(req: NextRequest) {
     });
 
   } catch (error: any) {
-    console.error("❌ API Error:", error);
+    console.error("❌ API Error:", error.message, error.code);
 
     if (error.code === "EAUTH") {
       return NextResponse.json(
