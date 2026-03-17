@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
+
 export default function Header() {
   const [open, setOpen] = useState(false);
 
@@ -11,27 +12,27 @@ export default function Header() {
       <div className="header-container">
 
         {/* Logo */}
-        <Link href="/" className="logo">
-         <Image
-  src="/logo.png"
-  alt="HireAdvocates Logo"
-  width={160}
-  height={40}
-  style={{ height: "auto" }}
-  priority
-/>
+        <Link href="/" className="logo" prefetch={false}>
+          <Image
+            src="/logo.png"
+            alt="HireAdvocates Logo"
+            width={160}
+            height={40}
+            style={{ height: "auto" }}
+            priority
+          />
         </Link>
 
         {/* Navigation */}
         <nav className={`nav-menu ${open ? "active" : ""}`}>
-  <Link href="/" onClick={() => setOpen(false)}>Home</Link>
-  <Link href="/hire-a-lawyer" onClick={() => setOpen(false)}>Hire a Lawyer</Link>
-  <Link href="/services" onClick={() => setOpen(false)}>Services</Link>
-  <Link href="/about" onClick={() => setOpen(false)}>About Us</Link>
-  <Link href="/blog" onClick={() => setOpen(false)}>Blog</Link>
+          <Link href="/" prefetch={false} onClick={() => setOpen(false)}>Home</Link>
+          <Link href="/hire-a-lawyer" prefetch={false} onClick={() => setOpen(false)}>Hire a Lawyer</Link>
+          <Link href="/services" prefetch={false} onClick={() => setOpen(false)}>Services</Link>
+          <Link href="/about" prefetch={false} onClick={() => setOpen(false)}>About Us</Link>
+          <Link href="/blog" prefetch={false} onClick={() => setOpen(false)}>Blog</Link>
 
-  <button className="primary-btn mobile-btn">Book a Call</button>
-</nav>
+          <button className="primary-btn mobile-btn">Book a Call</button>
+        </nav>
 
         {/* Desktop Button */}
         <div className="header-actions">
@@ -39,9 +40,9 @@ export default function Header() {
         </div>
 
         {/* Mobile Toggle */}
-       <div className="menu-toggle" onClick={() => setOpen(!open)}>
-  {open ? "✕" : "☰"}
-</div>
+        <div className="menu-toggle" onClick={() => setOpen(!open)}>
+          {open ? "✕" : "☰"}
+        </div>
 
       </div>
     </header>
