@@ -8,7 +8,7 @@ export default function LegalDisclaimer() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true); // ensures we're on the client before using portal
+    setMounted(true);
     try {
       const accepted = localStorage.getItem("hireadvocates_disclaimer");
       if (!accepted) {
@@ -38,36 +38,43 @@ export default function LegalDisclaimer() {
     window.location.href = "https://www.barcouncilofindia.org/";
   }, []);
 
-  if (!show || !mounted) return null;
+  // ✅ Don't render until mounted on client
+  if (!mounted) return null;
+  // ✅ Don't render if user already agreed
+  if (!show) return null;
 
-  // ✅ Portal renders directly into <body>, bypassing broken parent stacking contexts
   return createPortal(
     <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+      style={{ position: "fixed", inset: 0, zIndex: 9999, 
+               display: "flex", alignItems: "center", justifyContent: "center",
+               backgroundColor: "rgba(0,0,0,0.6)", padding: "16px" }}
       role="dialog"
       aria-modal="true"
       aria-labelledby="legal-disclaimer-title"
     >
-      <div className="bg-white max-w-lg w-full rounded-xl shadow-2xl p-6">
-        <h2
-          id="legal-disclaimer-title"
-          className="text-xl font-bold text-gray-900 mb-4 text-center"
-        >
+      <div style={{ backgroundColor: "white", maxWidth: "512px", width: "100%",
+                    borderRadius: "12px", boxShadow: "0 25px 50px rgba(0,0,0,0.25)",
+                    padding: "24px" }}>
+        
+        <h2 id="legal-disclaimer-title"
+            style={{ fontSize: "20px", fontWeight: "bold", color: "#111827",
+                     marginBottom: "16px", textAlign: "center" }}>
           Legal Disclaimer
         </h2>
 
-        <div className="text-sm text-gray-700 space-y-4 leading-relaxed max-h-[300px] overflow-y-auto pr-2">
-          <p>
+        <div style={{ fontSize: "14px", color: "#374151", lineHeight: "1.6",
+                      maxHeight: "300px", overflowY: "auto", paddingRight: "8px" }}>
+          <p style={{ marginBottom: "12px" }}>
             As per the rules of the Bar Council of India, law firms and legal
             professionals are not permitted to solicit work or advertise
             through public communication.
           </p>
-          <p>
+          <p style={{ marginBottom: "12px" }}>
             This website is provided solely for informational purposes. The
             content available on this website should not be interpreted as
             legal advice or solicitation.
           </p>
-          <p>
+          <p style={{ marginBottom: "12px" }}>
             By clicking <strong>"AGREE"</strong>, you acknowledge that you are
             accessing this website voluntarily to obtain information about legal
             services and that no solicitation, advertisement, or inducement has
@@ -81,22 +88,26 @@ export default function LegalDisclaimer() {
           </p>
         </div>
 
-        <div className="flex gap-4 mt-6">
+        <div style={{ display: "flex", gap: "16px", marginTop: "24px" }}>
           <button
             onClick={handleAgree}
-            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition duration-200"
+            style={{ flex: 1, backgroundColor: "#2563eb", color: "white",
+                     fontWeight: "600", padding: "12px", borderRadius: "8px",
+                     border: "none", cursor: "pointer", fontSize: "14px" }}
           >
             AGREE
           </button>
           <button
             onClick={handleDecline}
-            className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-900 font-semibold py-3 rounded-lg transition duration-200"
+            style={{ flex: 1, backgroundColor: "#e5e7eb", color: "#111827",
+                     fontWeight: "600", padding: "12px", borderRadius: "8px",
+                     border: "none", cursor: "pointer", fontSize: "14px" }}
           >
             DECLINE
           </button>
         </div>
       </div>
     </div>,
-    document.body // ✅ Renders outside all parent containers
+    document.body
   );
 }
